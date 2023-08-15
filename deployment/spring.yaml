@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-spring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-spring
+  template:
+    metadata:
+      labels:
+        app: my-spring
+    spec:
+      containers:
+        - name: my-spring
+          image: my-spring
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_HOST
+              value: host.docker.internal
+            - name: REDIS_PORT
+              value: "31500"
+            - name: MONGO_HOST
+              value: host.docker.internal
+            - name: MONGO_PORT
+              value: "32000"
+            - name: MONGO_URI
+              value: "mongodb://host.docker.internal:32000/docker"
+            - name: MYSQL_URL
+              value: "jdbc:mysql://host.docker.internal:31000/yourssu_docker?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+            - name: MYSQL_USERNAME
+              value: root
+            - name: MYSQL_PASSWORD
+              value: root

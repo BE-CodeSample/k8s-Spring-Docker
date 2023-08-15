@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-spring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-spring
+  template:
+    metadata:
+      labels:
+        app: my-spring
+    spec:
+      containers:
+        - name: my-spring
+          image: my-spring
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: my-spring-config
